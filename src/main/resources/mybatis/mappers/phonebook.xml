@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="phonebook">
+
+	<!-- PersonVo Map -->
+	<resultMap id="resultMapPersonVo"
+		type="com.javaex.vo.PersonVo">
+		<result column="person_id" property="personId" />
+		<result column="name" property="name" />
+		<result column="hp" property="hp" />
+		<result column="company" property="company" />
+	</resultMap>
+
+	<!-- 쿼리문 작성 -->
+	<!-- Vo와 변수명이 다를 경우 #1. 'as'를 사용해 편집 가능 -->
+	<!-- Vo와 변수명이 다를 경우 #2. 'resultMap'을 사용해 편집 가능 -->
+
+	<!-- 전체 리스트 #1 -->
+	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			SELECT person_id,
+				   name,
+				   hp,
+				   company
+			FROM   person
+			ORDER BY person_id asc
+		]]>
+	</select>
+
+	<!-- 전체 리스트 #2 -->
+	<!-- <select id="selectList" resultMap="resultMapPersonVo">
+		<![CDATA[
+		SELECT	person_id,
+				name,
+				hp,
+				company
+		FROM 	person
+		ORDER BY person_id asc
+		]]>
+	</select> -->
+
+	<!-- 저장 -->
+	<insert id="insert" parameterType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			INSERT INTO person VALUES(seq_person_id.NEXTVAL, #{name}, #{hp}, #{company})
+		]]>
+	</insert>
+
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			DELETE FROM person WHERE person_id = #{person_id}
+		]]>
+	</delete>
+
+	<!-- 특정 리스트 → 수정 폼 -->
+	<select id="getOne" parameterType="int"	resultType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			SELECT  person_id,
+        		    name,
+        			hp,
+        			company
+			FROM    person
+			WHERE   person_id = #{person_id}
+			ORDER BY person_id asc
+		]]>
+	</select>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="com.javaex.vo.PersonVo">
+		<![CDATA[
+			UPDATE person SET name = #{name}, hp = #{hp}, company = #{company} WHERE person_id = #{person_id}
+		]]>
+	</update>
+
+</mapper>
