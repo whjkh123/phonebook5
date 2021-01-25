@@ -17,13 +17,13 @@
 	</p>
 
 	<form action="${pageContext.request.contextPath }/phone/update2" method="get">
-		이름(name): <input type="text" name="name" value="${PersonVo.name }"><%-- ${requestScope.PersonVo.name } --%>
+		이름(name): <input type="text" name="name" value="${requestScope.pMap.NAME }"><%-- ${requestScope.PersonVo.name } --%>
 		<br>
-		핸드폰(hp): <input type="text" name="hp" value="${PersonVo.hp }"><%-- ${requestScope.PersonVo.hp } --%>
+		핸드폰(hp): <input type="text" name="hp" value="${requestScope.pMap.HP }"><%-- ${requestScope.PersonVo.hp } --%>
 		<br>
-		회사(company): <input type="text" name="company" value="${PersonVo.company }"><%-- ${requestScope.PersonVo.company } --%>
+		회사(company): <input type="text" name="company" value="${requestScope.pMap.COMPANY }"><%-- ${requestScope.PersonVo.company } --%>
 		<br>
-		<input type="hidden" name="person_id" value="${PersonVo.person_id}"><%-- ${requestScope.PersonVo.person_id } --%>
+		<input type="hidden" name="person_id" value="${requestScope.pMap.PERSON_ID}"><%-- ${requestScope.PersonVo.person_id } --%>
 		<button type="submit">수정</button>
 	</form>
 

@@ -33,7 +33,7 @@
 			</tr>
 
 			<tr>
-				<td><a href="${pageContext.request.contextPath }/phone/uForm?id=${pVo.person_id }">[수정]</a></td>
+				<td><a href="${pageContext.request.contextPath }/phone/uForm2?id=${pVo.person_id }">[수정]</a></td>
 				<%-- <td><a href="${pageContext.request.contextPath }/phone/delete/${pVo.person_id }">[삭제]</a></td> --%>
 				<td><a href="${pageContext.request.contextPath }/phone/delete?id=${pVo.person_id }">[삭제]</a></td>
 			</tr>

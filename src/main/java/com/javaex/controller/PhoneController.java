@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,6 +80,22 @@ public class PhoneController {
 
 		return "/updateForm";
 	}
+	
+	// updateForm2
+	@RequestMapping(value = "/uForm2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String uForm2(Model model, @RequestParam("id") int person_id) {
+		System.out.println("uForm2");
+
+		System.out.println(person_id);
+		
+		Map<String, Object> pMap = pDao.getOne2(person_id);
+
+		// System.out.println(pVo.toString());
+
+		model.addAttribute("pMap", pMap);
+
+		return "/updateForm2";
+	}
 
 	// http://localhost:8088/phonebook3/phone/update?id=[]
 	// update @RequestParam
@@ -109,6 +126,17 @@ public class PhoneController {
 		return "redirect:/phone/list";
 	}
 	*/
+	@RequestMapping(value = "/update2", method = { RequestMethod.GET, RequestMethod.POST })// @RequestMapping("/delete")
+	public String update2(@RequestParam("person_id") int person_id, @RequestParam("name") String name, @RequestParam("hp") String hp, @RequestParam("company") String company) {
+		   // System.out.println("update2");
+		  	
+		   pDao.dbUpd2(person_id, name, hp, company);
+		   // System.out.println("dao: dbUpd2(): " + person_id + ", " + name + ", " + hp + ", " + company);
+		  	
+		   // System.out.println(person_id);
+		  	
+		   return "redirect:/phone/list";
+		  }
 	// http://localhost:8088/phonebook3/phone/delete?id=[]
 	// delete
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })// @RequestMapping("/delete")

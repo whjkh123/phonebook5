@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +78,41 @@ public class PhoneDao {
 		System.out.println(pVo.toString());
 
 		return count;
+	}
+
+	// 특정 리스트 → 수정 폼2
+	public Map<String, Object> getOne2(int person_id) {
+
+		System.out.println("dao: getOne2()");
+
+		Map<String, Object> pMap = sql.selectOne("phonebook.getOne2", person_id);
+		
+		System.out.println(pMap.toString());		
+		
+		String name = (String)pMap.get("NAME");
+		System.out.println(name);
+		
+		int id = Integer.parseInt(String.valueOf(pMap.get("PERSON_ID")));
+		System.out.println(id);
+
+		return pMap;
+
+	}
+
+	// 수정2
+	public void dbUpd2(int person_id, String name, String hp, String company) {
+
+		System.out.println("dao: dbUpd2(): " + person_id + ", " + name + ", " + hp + ", " + company);
+
+		Map<String, Object> pMap = new HashMap<String, Object>();
+		pMap.put("id", person_id);
+		pMap.put("name", name);
+		pMap.put("hp", hp);
+		pMap.put("company", company);
+
+		System.out.println(pMap.toString());
+
+		sql.update("phonebook.update2", pMap);
 	}
 
 }

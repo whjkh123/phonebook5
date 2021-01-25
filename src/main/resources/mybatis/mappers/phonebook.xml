@@ -4,8 +4,7 @@
 <mapper namespace="phonebook">
 
 	<!-- PersonVo Map -->
-	<resultMap id="resultMapPersonVo"
-		type="com.javaex.vo.PersonVo">
+	<resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVo">
 		<result column="person_id" property="personId" />
 		<result column="name" property="name" />
 		<result column="hp" property="hp" />
@@ -17,7 +16,7 @@
 	<!-- Vo와 변수명이 다를 경우 #2. 'resultMap'을 사용해 편집 가능 -->
 
 	<!-- 전체 리스트 #1 -->
-	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+	<select id="selectList" resultType="PersonVo">
 		<![CDATA[
 			SELECT person_id,
 				   name,
@@ -41,7 +40,7 @@
 	</select> -->
 
 	<!-- 저장 -->
-	<insert id="insert" parameterType="com.javaex.vo.PersonVo">
+	<insert id="insert" parameterType="PersonVo">
 		<![CDATA[
 			INSERT INTO person VALUES(seq_person_id.NEXTVAL, #{name}, #{hp}, #{company})
 		]]>
@@ -55,7 +54,20 @@
 	</delete>
 
 	<!-- 특정 리스트 → 수정 폼 -->
-	<select id="getOne" parameterType="int"	resultType="com.javaex.vo.PersonVo">
+	<select id="getOne" parameterType="int"	resultType="PersonVo">
+		<![CDATA[
+			SELECT  person_id,
+        		    name,
+        			hp,
+        			company
+			FROM    person
+			WHERE   person_id = #{person_id}
+			ORDER BY person_id asc
+		]]>
+	</select>
+	
+	<!-- 특정 리스트 → 수정 폼2 -->
+	<select id="getOne2" parameterType="int" resultType="map">
 		<![CDATA[
 			SELECT  person_id,
         		    name,
@@ -68,9 +80,16 @@
 	</select>
 	
 	<!-- 수정 -->
-	<update id="update" parameterType="com.javaex.vo.PersonVo">
+	<update id="update" parameterType="PersonVo">
 		<![CDATA[
 			UPDATE person SET name = #{name}, hp = #{hp}, company = #{company} WHERE person_id = #{person_id}
+		]]>
+	</update>
+	
+	<!-- 수정2 -->
+	<update id="update2" parameterType="map">
+		<![CDATA[
+			UPDATE person SET name = #{name}, hp = #{hp}, company = #{company} WHERE person_id = #{id}
 		]]>
 	</update>
 
